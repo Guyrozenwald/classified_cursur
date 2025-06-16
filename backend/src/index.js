@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const sequelize = require('./models');
 require('./models/associations');
@@ -9,6 +10,14 @@ const servicesRouter = require('./routes/services');
 dotenv.config();
 
 const app = express();
+
+// Enable CORS for frontend
+app.use(cors({
+  origin: 'http://localhost:3001',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json());
 
 app.use('/listings', listingsRouter);
